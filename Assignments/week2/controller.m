@@ -7,9 +7,17 @@ function [ u ] = pd_controller(~, s, s_des, params)
 
 u = 0;
 
-
 % FILL IN YOUR CODE HERE
+%  z'' = u/m - g
+%   u = m(z''_des + K_p e + K_v e' + g)
+%   e(t) = z^des(t) - z(t)
+K_p = 130;
+K_v = 20;
+
+a_z = 0;
+e = s_des - s;
+u = params.mass * (a_z + K_v * e(2) + K_p * e(1) + params.gravity);
+
 
 
 end
-
