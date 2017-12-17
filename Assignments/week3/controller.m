@@ -18,6 +18,26 @@ u1 = 0;
 u2 = 0;
 
 % FILL IN YOUR CODE HERE
+Kd_y = 2;
+Kp_y = 12;
+
+Kd_z = 14;
+Kp_z = 400;
+
+Kd_phi = 30;
+Kp_phi = 2000;
+
+phi_c = -1/params.gravity * (des_state.acc(1) ...
+      + Kd_y * (des_state.vel(1) - state.vel(1)) ...
+      + Kp_y * (des_state.pos(1) - state.pos(1)));
+phi_c_dot = 0;
+phi_c_ddot = 0;
+
+u1 = params.mass * (params.gravity + des_state.acc(2) ...
+   + Kd_z * (des_state.vel(2) - state.vel(2)) ...
+   + Kp_z * (des_state.pos(2) - state.pos(2)));
+
+u2 = params.Ixx * (phi_c_ddot + Kd_phi * (phi_c_dot - state.omega) + Kp_phi * (phi_c - state.rot));
 
 end
 
